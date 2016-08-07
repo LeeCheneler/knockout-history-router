@@ -1,19 +1,25 @@
 /***** History is always pulled from root as it only defines the global 'History' *****/
 (function(root, factory) {
-    if (!root.History) {
-        throw "'History' is  not defined! knockout-router depends on History.js, preferably native.history.js. Available at: https://github.com/browserstate/history.js/.";
-    }
-    if (!root.ko) {
-        throw "'ko' is not defined! knockout-history-router depends on knockout.js. Available at: https://github.com/knockout/knockout."
-    }
+
 
     if (typeof define === "function" && define.amd) {
         // Define for AMD (RequireJs for example) 
-        define([], function() {
-            return (root.koHistoryRouter = factory(root.ko, root.History));
+        define(["knockout", "history"], function(ko) {
+            return (root.koHistoryRouter = factory(ko, History));
         });
     }
+    else if (typeof module === "object" && module.exports) {
+        // Export for CommonJs (Node.js for example) 
+        require("./history.js");
+        module.exports = (root.koHistoryRouter = factory(require("knockout"), History));
+    }
     else {
+        if (!root.History) {
+            throw "'History' is  not defined! knockout-router depends on History.js (npm: historyjs), preferably native.history.js. Available at: https://github.com/browserstate/history.js/.";
+        }
+        if (!root.ko) {
+            throw "'ko' is not defined! knockout-history-router depends on knockout.js. Available at: https://github.com/knockout/knockout."
+        }
         // Define on root (this would be 'window' in a browser environment for example)
         root.koHistoryRouter = factory(root.ko, root.History);
     }

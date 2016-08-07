@@ -1,0 +1,16 @@
+<!doctype html>
+<head>
+</head>
+<body>
+    <div>
+        <a data-bind="goto: 'home'" href="#">Home</a>
+        <a data-bind="goto: 'contact'" href="#">Contact</a>
+    </div>
+    <div data-bind="route: 'home'">
+        <span>Home</span>
+    </div>    
+    <div data-bind="route: 'contact'">
+        <span>Contact</span>
+    </div>
+    <script data-main="main" src="require.js"></script>
+</body>
