@@ -1,7 +1,7 @@
 {
-  "name": "knockout-router",
-  "description": "Simple SPA routing powered by knockout bindings.",
-  "main": "koRouter.js",
+  "name": "knockout-history-router",
+  "description": "Simple SPA routing powered by knockout bindings and History.js.",
+  "main": "koHistoryRouter.js",
   "authors": [
     "leecheneler"
   ],
@@ -11,7 +11,7 @@
     "spa",
     "knockout"
   ],
-  "homepage": "https://github.com/LeeCheneler/knockout-router",
+  "homepage": "https://github.com/LeeCheneler/knockout-history-router",
   "ignore": [
     "**/.*",
     "node_modules",
