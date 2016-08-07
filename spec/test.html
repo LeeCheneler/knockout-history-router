@@ -1,0 +1,29 @@
+<!doctype html>
+<head>
+</head>
+<body>
+    <div>
+        <a data-bind="goto: 'home'" href="#">Home</a>
+        <a data-bind="goto: 'contact'" href="#">Contact</a>
+    </div>
+    <div data-bind="route: 'home'">
+        <span>Home</span>
+    </div>    
+    <div data-bind="route: 'contact'">
+        <span>Contact</span>
+    </div>
+    <script src="../bower_components/knockout/dist/knockout.js"></script>
+    <script src="../bower_components/history.js/scripts/bundled/html5/native.history.js"></script>
+    <script src="../koHistoryRouter.js"></script>
+    <script>
+        var router = new koHistoryRouter({
+            defaultRoute: "home",
+            defaultTitle: "Home!",
+            contactTitle: "Contact!"
+        });
+
+        ko.applyBindings({});
+
+        router.start();
+    </script>
+</body>

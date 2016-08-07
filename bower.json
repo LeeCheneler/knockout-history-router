@@ -1,0 +1,26 @@
+{
+  "name": "knockout-router",
+  "description": "Simple SPA routing powered by knockout bindings.",
+  "main": "koRouter.js",
+  "authors": [
+    "leecheneler"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "routing",
+    "spa",
+    "knockout"
+  ],
+  "homepage": "https://github.com/LeeCheneler/knockout-router",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "knockout": "3.4.0",
+    "history.js": "1.8.0"
+  }
+}
