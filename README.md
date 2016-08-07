@@ -1,2 +1,2 @@
 # knockout-router
-Simple web page routing powered by knockout bindings.
+Simple web page routing via knockout bindings powered by History.js.
