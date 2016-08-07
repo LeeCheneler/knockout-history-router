@@ -22,5 +22,8 @@
   "dependencies": {
     "knockout": "3.4.0",
     "history.js": "1.8.0"
+  },
+  "devDependencies": {
+    "requirejs": "2.2.0"
   }
 }
