@@ -24,58 +24,62 @@
                 <route>Title: string // you can override titles for specific routes by adding a property like so
             }
         */
-    var router = function(config) {
+    var KoHistoryRouter = function() {
         var self = this;
 
         /*
         * PUBLIC PROPERTIES
         */
         this.state = ko.observable("");
-        this.config = config;
+        this.config = null;
 
         /*
-        * CONSTRUCTION
+        * INITIALISE
         */
-
-        // Validate config
-        if (!config.defaultRoute) {
-            throw "No default route set! ('config.defaultRoute')";
-        }
-
-        if (!config.defaultTitle) {
-            throw "No default title set! ('config.defaultTitle')";
-        }
-
-        // Start listening to state changes in URL to trigger navigation
-        history.Adapter.bind(window, "statechange", function () {
-            setStateFromUrl();
-        });
-
-        // Register knockout bindings for routing (route, goto)
-        ko.bindingHandlers.route = {
-            init: function (element, valueAccessor) {
-                var route = ko.unwrap(valueAccessor());
-                self.state.subscribe(function (newState) {
-                    if (route == newState) {
-                        element.style.display = 'block';
-                    }
-                    else {
-                        element.style.display = 'none';
-                    }
-                });
+        this.init = function (config) {
+            // Validate config
+            if (!config.defaultRoute) {
+                throw "No default route set! ('config.defaultRoute')";
             }
-        };
 
-        ko.bindingHandlers.goto = {
-            init: function (element, valueAccessor) {
-                var route = ko.unwrap(valueAccessor());
-                element.onclick = function () {
-                    self.goto(route);
-                    return false;
+            if (!config.defaultTitle) {
+                throw "No default title set! ('config.defaultTitle')";
+            }
+
+            self.config = config;
+
+            // Start listening to state changes in URL to trigger navigation
+            history.Adapter.bind(window, "statechange", function () {
+                setStateFromUrl();
+            });
+
+            // Register knockout bindings for routing (route, goto)
+            ko.bindingHandlers.route = {
+                init: function (element, valueAccessor) {
+                    var route = ko.unwrap(valueAccessor());
+                    self.state.subscribe(function (newState) {
+                        if (route == newState) {
+                            element.style.display = 'block';
+                        }
+                        else {
+                            element.style.display = 'none';
+                        }
+                    });
                 }
-            }
-        };
+            };
 
+            ko.bindingHandlers.goto = {
+                init: function (element, valueAccessor) {
+                    var route = ko.unwrap(valueAccessor());
+                    element.onclick = function () {
+                        self.goto(route);
+                        return false;
+                    }
+                }
+            };
+        }
+
+        
         /*
         * PUBLIC METHODS
         */
@@ -134,5 +138,5 @@
 
     };
         
-    return router;
+    return new KoHistoryRouter();
 }));

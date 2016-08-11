@@ -1,5 +1,5 @@
-require(["test/knockout", "test/koHistoryRouter"], function(ko, Router) {
-    var router = new Router({
+require(["./knockout", "./koHistoryRouter"], function(ko, router) {
+    router.init({
         defaultRoute: "home",
         defaultTitle: "Default title buddy"
     });

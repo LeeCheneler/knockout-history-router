@@ -16,7 +16,7 @@
     <script src="../../bower_components/history.js/scripts/bundled/html5/native.history.js"></script>
     <script src="../../koHistoryRouter.js"></script>
     <script>
-        var router = new koHistoryRouter({
+        koHistoryRouter.init({
             defaultRoute: "home",
             defaultTitle: "Home!",
             contactTitle: "Contact!"
@@ -24,6 +24,6 @@
 
         ko.applyBindings({});
 
-        router.start();
+        koHistoryRouter.start();
     </script>
 </body>
