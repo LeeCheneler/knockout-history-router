@@ -97,7 +97,22 @@
 
         // Navigate to a route
         this.goto = function (route) {
-            history.pushState({ state: route }, getTitle(route), "?state=" + route);
+            var stateObj = history.getState();
+            var url = stateObj.hash;
+            var suidIndex = url.indexOf("&_suid=");
+
+            if (suidIndex >= 0) {
+                url = url.substring(0, suidIndex);
+            }
+
+            if (url.indexOf("?state=") >= 0) {
+                url = url.replace("?state=" + self.state(), "?state=" + route);
+            }
+            else {
+                url = "?state=" + route;
+            }
+
+            history.pushState({ state: route }, getTitle(route), url);
         };
         
         /*

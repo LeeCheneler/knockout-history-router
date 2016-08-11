@@ -99,11 +99,19 @@
         this.goto = function (route) {
             var stateObj = history.getState();
             var url = stateObj.hash;
-            url = url.replace("?state=" + self.state(), "?state=" + route);
             var suidIndex = url.indexOf("&_suid=");
+
             if (suidIndex >= 0) {
                 url = url.substring(0, suidIndex);
             }
+
+            if (url.indexOf("?state=") >= 0) {
+                url = url.replace("?state=" + self.state(), "?state=" + route);
+            }
+            else {
+                url = "?state=" + route;
+            }
+
             history.pushState({ state: route }, getTitle(route), url);
         };
         
