@@ -151,7 +151,7 @@
                 self.state(urlState);
             }
             
-            pubsub.publish("routechanged", this.state());
+            pubsub.publish("routechanged", self.state());
         }
 
         // Get a named URL parameter from a provided URL
