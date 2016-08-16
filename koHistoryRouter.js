@@ -2,21 +2,24 @@
 (function(root, factory) {
     if (typeof define === "function" && define.amd) {
         // Define for AMD (RequireJs for example) 
-        define(["./knockout", "./native.history"], function(ko) {
-            return (root.koHistoryRouter = factory(ko, History));
+        define(["./knockout", "./native.history", "./pubsub"], function(ko) {
+            return (root.koHistoryRouter = factory(ko, History, PubSub));
         });
     }
     else {
         if (!root.History) {
-            throw "'History' is  not defined! knockout-router depends on History.js (npm: historyjs), preferably native.history.js. Available at: https://github.com/browserstate/history.js/.";
+            throw "'History' is  not defined! knockout-history-router depends on History.js (bower: history.js). Available at: https://github.com/browserstate/history.js/.";
+        }
+        if (!root.PubSub) {
+            throw "'PubSub' is  not defined! knockout-history-router depends on PubSub.js (bower: pubsub-js). Available at: https://github.com/mroderick/PubSubJS.";
         }
         if (!root.ko) {
             throw "'ko' is not defined! knockout-history-router depends on knockout.js. Available at: https://github.com/knockout/knockout."
         }
         // Define on root (this would be 'window' in a browser environment for example)
-        root.koHistoryRouter = factory(root.ko, root.History);
+        root.koHistoryRouter = factory(root.ko, root.History, root.PubSub);
     }
-}(this, function(ko, history) {
+}(this, function(ko, history, pubsub) {
     /* config definition
             {
                 defaultRoute: string,
@@ -26,6 +29,7 @@
         */
     var KoHistoryRouter = function() {
         var self = this;
+        var routeSubscriptions = [];
 
         /*
         * PUBLIC PROPERTIES
@@ -33,9 +37,12 @@
         this.state = ko.observable("");
         this.config = null;
 
+
+        
         /*
-        * INITIALISE
+        * PUBLIC METHODS
         */
+        // Initalise the router
         this.init = function (config) {
             // Validate config
             if (!config.defaultRoute) {
@@ -79,11 +86,6 @@
             };
         }
 
-        
-        /*
-        * PUBLIC METHODS
-        */
-
         // Start the router, navigates to a route, the default one if one doesn't exist in URL
         this.start = function () {
             setStateFromUrl();
@@ -115,6 +117,16 @@
             history.pushState({ state: route }, getTitle(route), url);
         };
         
+        // Subscribe to the routechanged event. Returns a token used to unsubscribe.
+        this.subscribeToRouteChanged = function (subscriber) {
+            pubsub.subscribe("routechanged", subscriber);
+        }
+
+        // Unsubscribes from the routechange event. Takes the token returned during subscription.
+        this.unsubscribeFromRouteChanged = function (token) {
+            pubsub.unsubscribe(token);
+        }
+
         /*
         * PRIVATE METHODS
         */
@@ -138,6 +150,8 @@
             else {
                 self.state(urlState);
             }
+            
+            pubsub.publish("routechanged", this.state());
         }
 
         // Get a named URL parameter from a provided URL
