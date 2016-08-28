@@ -107,3 +107,15 @@ Knockout-history-router will push the state 'contactus' and the Url will look li
 ```
 http://www.example.com/?state=contactus
 ```
+
+#### subscribeToRouteChanged(subscriber:function(event:string, data:string))
+
+Subscribe to the route changed event. Returns a token to use to unsubscribe.
+
+The library [PubSubJs](https://github.com/mroderick/PubSubJS) is used to serve the events. 
+
+#### UnsubscribeFromRouteChanged(token:object)
+
+Unsubscribe from the route changed event using the token gained from when subscribing.
+
+The library [PubSubJs](https://github.com/mroderick/PubSubJS) is used to serve the events. 
