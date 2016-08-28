@@ -64,14 +64,12 @@
             ko.bindingHandlers.route = {
                 init: function (element, valueAccessor) {
                     var route = ko.unwrap(valueAccessor());
-                    self.state.subscribe(function (newState) {
-                        if (route == newState) {
-                            element.style.display = 'block';
-                        }
-                        else {
-                            element.style.display = 'none';
-                        }
+                    var newState = "";
+                    var computedRoute = ko.computed(function() {
+                        return ko.unwrap(valueAccessor()) == self.state();
                     });
+
+                    ko.bindingHandlers.if.init(element, computedRoute);
                 }
             };
 
