@@ -64,7 +64,6 @@
             ko.bindingHandlers.route = {
                 init: function (element, valueAccessor) {
                     var route = ko.unwrap(valueAccessor());
-                    var newState = "";
                     var computedRoute = ko.computed(function() {
                         return ko.unwrap(valueAccessor()) == self.state();
                     });
