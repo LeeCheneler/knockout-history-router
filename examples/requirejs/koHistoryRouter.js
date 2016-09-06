@@ -111,7 +111,15 @@
                 url = url.replace("?state=" + self.state(), "?state=" + route);
             }
             else {
-                url = "?state=" + route;
+                var paramsIndex = url.indexOf("?");
+                // check ? isn't just the last character in the url and there aren't really any paras
+                if (paramsIndex != url.length) {
+                    var params = "&" + url.substring(paramsIndex + 1, url.length);
+                    url = "?state=" + route + params;
+                }
+                else {
+                    url = "?state=" + route;
+                }
             }
 
             history.pushState({ state: route }, getTitle(route), url);
