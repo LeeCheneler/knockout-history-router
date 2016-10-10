@@ -1,6 +1,6 @@
 # knockout-history-router
  
- Knockout-history-router make SPA routing with [knockout](http://knockoutjs.com) super simple! It is powered by 2 custom bindings provided by this library, **goto** and **route**. Behind the scenes **[History.js](https://github.com/browserstate/history.js)** is used to handle the current Url state and push new states to the Url.
+ Knockout-history-router makes SPA routing with [knockout](http://knockoutjs.com) super simple! It is powered by 2 custom bindings provided by this library, **goto** and **route**. Behind the scenes **[History.js](https://github.com/browserstate/history.js)** is used to handle the current Url state and push new states to the Url.
  
 ## Dependencies
 
