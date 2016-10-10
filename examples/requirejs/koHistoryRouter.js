@@ -2,8 +2,8 @@
 (function(root, factory) {
     if (typeof define === "function" && define.amd) {
         // Define for AMD (RequireJs for example) 
-        define(["./knockout", "./native.history", "./pubsub"], function(ko) {
-            return (root.koHistoryRouter = factory(ko, History, PubSub));
+        define(["./knockout", "./pubsub", "./native.history"], function(ko, pubsub) {
+            return (root.koHistoryRouter = factory(ko, pubsub, root.History));
         });
     }
     else {
@@ -17,9 +17,9 @@
             throw "'ko' is not defined! knockout-history-router depends on knockout.js. Available at: https://github.com/knockout/knockout."
         }
         // Define on root (this would be 'window' in a browser environment for example)
-        root.koHistoryRouter = factory(root.ko, root.History, root.PubSub);
+        root.koHistoryRouter = factory(root.ko, root.PubSub, root.History);
     }
-}(this, function(ko, history, pubsub) {
+}(this, function(ko, pubsub, history) {
     /* config definition
             {
                 defaultRoute: string,
